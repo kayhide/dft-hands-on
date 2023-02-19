@@ -31,9 +31,11 @@ NAME="ecut"
 echo $NAME
 ####################################################
 
+out=output
+
 for CUTOFF in  10 15 20 25 30
 do
-cat > ${NAME}_${CUTOFF}.in << EOF
+cat > $out/${NAME}_${CUTOFF}.in << EOF
  &control
     calculation = 'scf',
     prefix = 'Si_exc1'
@@ -62,6 +64,6 @@ K_POINTS (automatic)
   6 6 6 1 1 1
 EOF
 
-~/softwares/espresso-5.0.1/bin/pw.x < ${NAME}_${CUTOFF}.in > ${NAME}_${CUTOFF}.out
+pw.x < $out/${NAME}_${CUTOFF}.in > $out/${NAME}_${CUTOFF}.out
 
 done
