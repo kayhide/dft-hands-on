@@ -6,6 +6,8 @@ value-from-filename() {
     local x="$(echo "$1" | sed "s/.*-\(.*\).out/\1/")"
     if [[ $SCALE == 0.1 ]]; then
         x=$(echo "scale = 1; $x * $SCALE" | bc)
+    else
+        x=$(echo "$x" | bc)
     fi
     echo -n "$x"
 }

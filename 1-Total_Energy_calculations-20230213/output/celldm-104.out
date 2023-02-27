@@ -1,5 +1,5 @@
 
-     Program PWSCF v.6.6 starts on 27Feb2023 at 20: 2:13 
+     Program PWSCF v.6.6 starts on 27Feb2023 at 20:23:31 
 
      This program is part of the open-source Quantum ESPRESSO suite
      for quantum simulation of materials; please cite
@@ -299,45 +299,45 @@
 
      Writing output data file ./tmp/Si_exc1.save/
 
-     init_run     :      0.95s CPU      0.11s WALL (       1 calls)
-     electrons    :      7.87s CPU      0.69s WALL (       1 calls)
+     init_run     :      0.84s CPU      0.10s WALL (       1 calls)
+     electrons    :      8.01s CPU      0.70s WALL (       1 calls)
 
      Called by init_run:
-     wfcinit      :      0.92s CPU      0.08s WALL (       1 calls)
-     potinit      :      0.00s CPU      0.01s WALL (       1 calls)
+     wfcinit      :      0.81s CPU      0.07s WALL (       1 calls)
+     potinit      :      0.01s CPU      0.01s WALL (       1 calls)
      hinit0       :      0.02s CPU      0.02s WALL (       1 calls)
 
      Called by electrons:
-     c_bands      :      6.84s CPU      0.58s WALL (       6 calls)
-     sum_band     :      0.89s CPU      0.09s WALL (       6 calls)
+     c_bands      :      6.97s CPU      0.59s WALL (       6 calls)
+     sum_band     :      0.90s CPU      0.09s WALL (       6 calls)
      v_of_rho     :      0.12s CPU      0.03s WALL (       6 calls)
      mix_rho      :      0.00s CPU      0.00s WALL (       6 calls)
 
      Called by c_bands:
-     init_us_2    :      0.22s CPU      0.02s WALL (     364 calls)
-     cegterg      :      6.63s CPU      0.56s WALL (     168 calls)
+     init_us_2    :      0.19s CPU      0.02s WALL (     364 calls)
+     cegterg      :      6.77s CPU      0.57s WALL (     168 calls)
 
      Called by *egterg:
-     cdiaghg      :      0.47s CPU      0.05s WALL (     596 calls)
-     h_psi        :      6.67s CPU      0.56s WALL (     652 calls)
-     g_psi        :      0.02s CPU      0.00s WALL (     456 calls)
+     cdiaghg      :      0.34s CPU      0.04s WALL (     596 calls)
+     h_psi        :      6.92s CPU      0.57s WALL (     652 calls)
+     g_psi        :      0.01s CPU      0.00s WALL (     456 calls)
 
      Called by h_psi:
      h_psi:calbec :      0.14s CPU      0.01s WALL (     652 calls)
-     vloc_psi     :      6.30s CPU      0.54s WALL (     652 calls)
-     add_vuspsi   :      0.17s CPU      0.01s WALL (     652 calls)
+     vloc_psi     :      6.57s CPU      0.55s WALL (     652 calls)
+     add_vuspsi   :      0.19s CPU      0.01s WALL (     652 calls)
 
      General routines
-     calbec       :      0.13s CPU      0.01s WALL (     652 calls)
-     fft          :      0.06s CPU      0.01s WALL (      60 calls)
+     calbec       :      0.11s CPU      0.01s WALL (     652 calls)
+     fft          :      0.04s CPU      0.01s WALL (      60 calls)
      ffts         :      0.00s CPU      0.00s WALL (       6 calls)
-     fftw         :      6.22s CPU      0.55s WALL (    5212 calls)
+     fftw         :      6.57s CPU      0.56s WALL (    5212 calls)
 
 
-     PWSCF        :      8.84s CPU      0.82s WALL
+     PWSCF        :      8.86s CPU      0.82s WALL
 
 
-   This run was terminated on:  20: 2:13  27Feb2023            
+   This run was terminated on:  20:23:31  27Feb2023            
 
 =------------------------------------------------------------------------------=
    JOB DONE.
