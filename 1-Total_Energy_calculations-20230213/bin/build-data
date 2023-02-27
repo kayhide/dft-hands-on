@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -eu
+
+value-from-filename() {
+    local x="$(echo "$1" | sed "s/.*-\(.*\).out/\1/")"
+    if [[ $SCALE == 0.1 ]]; then
+        x=$(echo "scale = 1; $x * $SCALE" | bc)
+    fi
+    echo -n "$x"
+}
+
+total-energy() {
+    local x
+    while read -r f; do
+        value-from-filename "$f"
+        sed -n "s/^!.*= *\([-\.0-9]*\).*/ \1/p" $f
+    done
+}
+
+cpu-time() {
+    while read -r f; do
+        value-from-filename "$f"
+        sed -n "s/ *PWSCF *: *\([-\.0-9]*\).*/ \1/p" $f
+    done
+}
+
+case $1 in
+total-energy | cpu-time)
+    SCALE=${2:-1}
+    $1
+    ;;
+*)
+    echo "Unknown command: $1"
+    exit 1
+    ;;
+esac
