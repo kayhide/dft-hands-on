@@ -20,8 +20,9 @@
           dev-env = pkgs.buildEnv {
             name = "dev-env";
             paths = with pkgs; [
-              gnumake
               gfortran
+              gnumake
+              gnuplot
               quantum-espresso
               xcrysden
             ];
