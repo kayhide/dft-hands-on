@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+find . -name "*degaus*.out" | sort -V | sed -n "s/.*degauss.\([^_]*\).*/\1/p" | uniq | while read -r x; do
+    dst="degauss.$x.data"
+    echo $dst
+    rm -f "$dst"
+    find . -name "*degauss.${x}_*.out" | sort -V | while read -r f; do
+        nk="$(echo $f | sed "s/.*kdiv.\([0-9]*\).*/\1/")"
+        (echo -n "$nk "; sed -n "s/^\!.*= *\([^ ]*\).*/\1/p" "$f") >> "$dst"
+    done
+done
+
+data="$(find -name "degauss.*.data" | sort -V | sed "s/.*/'\0' w l/" | paste -sd "," -)"
+
+gnuplot -e "set terminal svg size 640,480 background rgb 'white'; set output 'energy.svg'; plot $data"
+
+echo "done."

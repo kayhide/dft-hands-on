@@ -64,7 +64,7 @@ K_POINTS (automatic)
   $NK $NK $NK 1 1 1
 EOF
 
-/usr/local/apps/espresso-5.1/pw.x < Al.$NAME1.${DEG}_$NAME2.${NK}.in >  Al.$NAME1.${DEG}_$NAME2.${NK}.out
+pw.x < Al.$NAME1.${DEG}_$NAME2.${NK}.in >  Al.$NAME1.${DEG}_$NAME2.${NK}.out
 
 done
 
