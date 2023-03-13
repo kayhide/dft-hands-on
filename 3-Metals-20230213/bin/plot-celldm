@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -eu
+
+create-data() {
+    find . -name "*celldm*.out" | sort -V | while read -r f; do
+        x=$(echo "$f" | sed "s/.*celldm\.\([0-9\.]*\)\..*/\1/")
+        echo -n "$x "
+        sed -n "s/^!.*= *\([^ ]*\).*/\1/p" $f
+    done
+}
+
+data="celldm-energy.data"
+create-data > "$data"
+
+gnuplot -e "set terminal svg size 640,480 background rgb 'white'; set output 'celldm-energy.svg'; plot '$data' w l"
+
+echo "done."
+
+cat <<EOS
+Now, run ev.x and find the minimum.
+The following does that and you will get `ev.out` which contains
+an estimated lattice constant.
+
+> ev.x
+     Lattice parameter or Volume are in (au, Ang) > au
+     Enter type of bravais lattice (fcc, bcc, sc, noncubic) > fcc
+     Enter type of equation of state :
+     1=birch1, 2=birch2, 3=keane, 4=murnaghan > 2
+     Input file > celldm-energy.data
+     Output file > ev.out
+EOS
