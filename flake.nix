@@ -17,6 +17,14 @@
         let
           pkgs = import inputs.nixpkgs { inherit system; overlays = [ overlay ]; };
 
+          my-python = pkgs.python3.withPackages (p: with p; [
+            pip
+            setuptools
+            virtualenv
+            wheel
+            phonopy
+          ]);
+
           dev-env = pkgs.buildEnv {
             name = "dev-env";
             paths = with pkgs; [
@@ -25,6 +33,7 @@
               gnuplot
               quantum-espresso
               xcrysden
+              my-python
             ];
           };
         in
