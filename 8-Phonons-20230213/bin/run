@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+set -eu
+
+create-relax() {
+    pw.x < Si.relax.in > Si.relax.out
+}
+
+extract-cell-parameters() {
+    cat "$1" \
+      | rg -U "(?s)Begin final coordinates.*End final coordinates" \
+      | rg -U "(?s)CELL_PARAMETERS.*" \
+      | grep -v "^End" \
+      | sed "s/CELL_PARAMETERS/\0 alat/"
+}
+
+print-relaxed-in() {
+    cat <<EOF
+&control
+    calculation = 'scf',
+    verbosity = 'high',
+    forc_conv_thr = 1.0D-4,
+    tprnfor = .true.
+    prefix = 'Si_exc1',
+    outdir = '../tmp/'
+    pseudo_dir = '../pseudo/'
+/
+&system
+    ibrav =  0,
+    nat =  2,
+    ntyp = 1,
+    ecutwfc = 25
+    celldm(1)=10.26121290
+/
+&electrons
+    conv_thr = 1.0D-7,
+/
+&ions
+/
+ATOMIC_SPECIES
+ Si 28.086  Si.pbe-rrkj.UPF
+
+$(extract-cell-parameters Si.relax.out)
+
+K_POINTS (automatic)
+10 10 10 1 1 1
+
+EOF
+}
+
+print-header-in() {
+    cat <<EOF
+&control
+    calculation = 'scf',
+    verbosity = 'high',
+    tprnfor = .true.
+    prefix = 'Si_exc1',
+    outdir = '../tmp/'
+    pseudo_dir = '../pseudo/'
+/
+&system
+    ibrav = 0, nat = 16, ntyp = 1, ecutwfc = 25
+/
+&electrons
+    conv_thr = 1.0D-7,
+/
+K_POINTS (automatic)
+5 5 5 1 1 1
+
+EOF
+}
+
+create-supercells() {
+    print-relaxed-in > Si.relaxed.in
+    echo "run phonopy"
+    phonopy --qe -d --dim="2 2 2" -c Si.relaxed.in
+}
+
+pwx-forces() {
+    find -name "supercell-*.in" | sort -V | while read -r f; do
+        in="${f/supercell/Si}"
+        out="${in/%.in/.out}"
+        (print-header-in; cat "$f") > "$in"
+        pw.x < "$in" > "$out"
+    done
+}
+
+create-force-sets() {
+    readarray -t fs < <(find -name "Si-*.out" | grep "\bSi-[0-9]*.out")
+    phonopy -f "${fs[@]}"
+}
+
+[[ ! -f Si.relax.out ]] && create-relax
+[[ ! -f supercell.in ]] && create-supercells
+[[ ! -f Si-001.out ]] && pwx-forces
+[[ ! -f FORCE_SETS ]] && create-force-sets
+
+# phonopy --qe -c Si.relaxed.in -p gamma.conf
+# phonopy --qe -c Si.relaxed.in -p band.conf
+# phonopy --qe -c Si.relaxed.in -p repres.conf # not working
+# phonopy --qe -c Si.relaxed.in -p anime.conf # what is v-sim?
+
+echo "done"

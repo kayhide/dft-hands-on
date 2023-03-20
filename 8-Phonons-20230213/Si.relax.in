@@ -1,5 +1,7 @@
  &control
     calculation = 'vc-relax',
+    forc_conv_thr = 1.0D-4,
+    etot_conv_thr = 1.0D-5,
     prefix = 'Si_exc1',
     outdir = '../tmp/'
     pseudo_dir = '../pseudo/'
@@ -12,6 +14,7 @@
     ecutwfc = 25
  /
  &electrons
+    conv_thr = 1.0D-7,
     mixing_beta = 0.6
  /
  &ions
