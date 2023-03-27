@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+set -eu
+
+create-relax() {
+    pw.x < GaN.relax.in > GaN.relax.out
+}
+
+extract-cell-parameters() {
+    cat "$1" \
+      | rg -U "(?s)Begin final coordinates.*End final coordinates" \
+      | rg -U "(?s)CELL_PARAMETERS.*" \
+      | grep -v "^End" \
+      | sed "s/CELL_PARAMETERS/\0 alat/"
+}
+
+print-relaxed-in() {
+    cat <<EOF
+&CONTROL
+    calculation = 'scf',
+    verbosity = 'high',
+    tprnfor = .true.
+    prefix = 'GaN_exc1',
+    forc_conv_thr = 1.0D-4,
+    etot_conv_thr = 1.0D-5,
+    outdir = '../tmp/'
+    pseudo_dir = '../pseudo/'
+/
+&SYSTEM
+    ibrav = 4,
+    celldm(1) = 4.52265,
+    celldm(3) = 8.182,
+    nat = 4,
+    ntyp = 2,
+    ecutwfc = 60,
+    ecutrho = 240,
+/
+&ELECTRONS
+    conv_thr = 1.0e-8,
+    mixing_beta = 0.7
+/
+&IONS
+/
+ATOMIC_SPECIES
+ Ga 69.723  Ga_ONCV_PBE_sr.upf
+ N  14.007  N_ONCV_PBE_sr.upf
+
+$(extract-cell-parameters GaN.relax.out)
+
+K_POINTS automatic
+    6 6 4 0 0 0
+
+EOF
+}
+
+print-header-in() {
+    cat <<EOF
+&control
+    calculation = 'scf',
+    verbosity = 'high',
+    tprnfor = .true.
+    prefix = 'GaN_exc1',
+    forc_conv_thr = 1.0D-4,
+    etot_conv_thr = 1.0D-5,
+    outdir = '../tmp/'
+    pseudo_dir = '../pseudo/'
+/
+&system
+    ibrav = 0, nat = 16, ntyp = 1, ecutwfc = 25
+/
+&electrons
+    conv_thr = 1.0D-7,
+/
+K_POINTS (automatic)
+    3 3 2 0 0 0
+
+EOF
+}
+
+create-supercells() {
+    print-relaxed-in > GaN.relaxed.in
+    echo "run phonopy"
+    phonopy --qe -d --dim="2 2 2" -c GaN.relaxed.in
+}
+
+pwx-forces() {
+    find -name "supercell-*.in" | sort -V | while read -r f; do
+        in="${f/supercell/GaN}"
+        out="${in/%.in/.out}"
+        (print-header-in; cat "$f") > "$in"
+        pw.x < "$in" > "$out"
+    done
+}
+
+create-force-sets() {
+    readarray -t fs < <(find -name "GaN-*.out" | grep "\bGaN-[0-9]*.out")
+    phonopy -f "${fs[@]}"
+}
+
+[[ ! -f GaN.relax.out ]] && create-relax
+# [[ ! -f supercell.in ]] && create-supercells
+# [[ ! -f GaN-001.out ]] && pwx-forces
+# [[ ! -f FORCE_SETS ]] && create-force-sets
+
+# phonopy --qe -c GaN.relaxed.in -p gamma.conf
+# phonopy --qe -c GaN.relaxed.in -p band.conf
+# phonopy --qe -c GaN.relaxed.in -p repres.conf # not working
+# phonopy --qe -c GaN.relaxed.in -p anime.conf # what is v-sim?
+
+echo "done"
