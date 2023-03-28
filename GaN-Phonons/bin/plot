@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -eu
+
+output_dir="output"
+
+plot() {
+    name="$1"
+    echo "processing: $name"
+    src="$output_dir/$name.data"
+    dst="$output_dir/$name.svg"
+
+    rm -f "$src"
+    find "$output_dir" -name "${name}_*.out" | sort -V | while read -r f; do
+        x="$(echo $f | sed "s/.*_\([0-9]*\).*/\1/")"
+        (echo -n "$x "; sed -n "s/^\!.*= *\([^ ]*\).*/\1/p" "$f") >> "$src"
+    done
+    echo "create: $src"
+
+    data="$(echo "$src" | sed "s/.*/'\0' w l/")"
+    gnuplot -e "set terminal svg size 640,480 background rgb 'white'; set output '$dst'; plot $data"
+    echo "create: $dst"
+}
+
+plot ecut
+plot nk
+
+echo "done."
