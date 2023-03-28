@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eu
+
+find -name "supercell-*.in" | sort -V | while read -r f; do
+    dst="${f/supercell/GaN}"
+    cat header.in "$f" > "$dst"
+    echo "create: $dst"
+done
+
+echo "done."
