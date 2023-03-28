@@ -1,0 +1,83 @@
+./output/ecut_20.out
+!    total energy              =    -301.68231525 Ry
+     PWSCF        :     30.28s CPU     32.14s WALL
+./output/ecut_25.out
+!    total energy              =    -317.62448866 Ry
+     PWSCF        :     28.99s CPU     30.60s WALL
+./output/ecut_30.out
+!    total energy              =    -329.34428594 Ry
+     PWSCF        :     26.91s CPU     28.79s WALL
+./output/ecut_35.out
+!    total energy              =    -337.32641839 Ry
+     PWSCF        :     25.20s CPU     26.82s WALL
+./output/ecut_40.out
+!    total energy              =    -342.33243676 Ry
+     PWSCF        :     33.03s CPU     34.74s WALL
+./output/ecut_50.out
+!    total energy              =    -346.56939635 Ry
+     PWSCF        :     30.18s CPU     31.61s WALL
+./output/ecut_100.out
+!    total energy              =    -347.51817649 Ry
+     PWSCF        :   2m27.97s CPU   2m32.08s WALL
+./output/ecut_150.out
+!    total energy              =    -347.51871394 Ry
+     PWSCF        :   4m54.11s CPU   5m 0.49s WALL
+./output/ecut_200.out
+!    total energy              =    -347.51875560 Ry
+     PWSCF        :   6m28.33s CPU   6m35.65s WALL
+./output/ecut_250.out
+!    total energy              =    -347.51879769 Ry
+     PWSCF        :   8m42.06s CPU   8m51.78s WALL
+./output/ecut_300.out
+!    total energy              =    -347.51880321 Ry
+     PWSCF        :  13m37.71s CPU  13m50.12s WALL
+./output/ecut_350.out
+!    total energy              =    -347.51880496 Ry
+     PWSCF        :  14m24.95s CPU  14m39.71s WALL
+./output/ecut_400.out
+!    total energy              =    -347.51880609 Ry
+     PWSCF        :  19m30.42s CPU  19m48.09s WALL
+./output/ecut_450.out
+!    total energy              =    -347.51880688 Ry
+     PWSCF        :  33m45.91s CPU  34m 7.98s WALL
+./output/ecut_500.out
+!    total energy              =    -347.51880709 Ry
+     PWSCF        :  38m37.46s CPU  39m 1.01s WALL
+./output/nk_10.out
+!    total energy              =    -347.51875084 Ry
+     PWSCF        :     57.62s CPU     58.51s WALL
+./output/nk_15.out
+!    total energy              =    -347.51875600 Ry
+     PWSCF        :   2m59.62s CPU   3m 2.48s WALL
+./output/nk_20.out
+!    total energy              =    -347.51875560 Ry
+     PWSCF        :   6m13.95s CPU   6m21.51s WALL
+./output/nk_25.out
+!    total energy              =    -347.51875569 Ry
+     PWSCF        :  11m 7.00s CPU  11m18.76s WALL
+./output/nk_30.out
+!    total energy              =    -347.51875566 Ry
+     PWSCF        :  19m56.63s CPU  20m18.97s WALL
+./output/nk_35.out
+!    total energy              =    -347.51875568 Ry
+     PWSCF        :  29m19.31s CPU  29m53.97s WALL
+./output/nk_40.out
+!    total energy              =    -347.51875589 Ry
+     PWSCF        :  44m41.05s CPU  45m37.07s WALL
+./output/nk_45.out
+!    total energy              =    -347.51875586 Ry
+     PWSCF        :  56m 8.16s CPU  57m17.59s WALL
+./output/nk_50.out
+!    total energy              =    -347.51875586 Ry
+     PWSCF        :      1h18m CPU      1h19m WALL
+./output/nk_55.out
+!    total energy              =    -347.51875594 Ry
+     PWSCF        :      1h46m CPU      1h48m WALL
+./output/nk_60.out
+!    total energy              =    -347.51875586 Ry
+     PWSCF        :      2h14m CPU      2h17m WALL
+./output/nk_65.out
+!    total energy              =    -347.51875597 Ry
+     PWSCF        :      2h51m CPU      2h55m WALL
+./output/nk_70.out
+!    total energy              =    -347.51875580 Ry
