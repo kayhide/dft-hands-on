@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --partition=batch
+#SBATCH --job-name=mah
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=50gb
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=6
+#SBATCH --output=%x-%j.out
+#SBATCH --error=%x-%j.err
+
+module load QuantumESPRESSO/6.8-intel-2021a
+
+srun pw.x < ./GaN-001.in > output/force/GaN-001.out
+srun pw.x < ./GaN-002.in > output/force/GaN-002.out
+srun pw.x < ./GaN-003.in > output/force/GaN-003.out
+srun pw.x < ./GaN-004.in > output/force/GaN-004.out
