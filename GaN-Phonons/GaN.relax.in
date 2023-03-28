@@ -13,8 +13,7 @@
     celldm(3) = 1.62696,
     nat = 4,
     ntyp = 2,
-    ecutwfc = 60,
-    ecutrho = 240,
+    ecutwfc = 150,
 /
 &ELECTRONS
     conv_thr = 1.0e-8,
@@ -35,5 +34,5 @@ ATOMIC_POSITIONS crystal
     N  0.3333333333333333    0.6666666666666666    0.3759162900000002
 
 K_POINTS automatic
-    6 6 4 0 0 0
+    10 10 10 0 0 0
 
