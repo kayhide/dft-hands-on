@@ -1,18 +1,3 @@
-#!/usr/bin/bash
-
-module load QuantumESPRESSO/6.8-intel-2021a
-
-NAME="nk"
-
-echo $NAME
-####################################################
-
-out=output
-
-CUTOFF=200
-
-for NK in $(seq 10 5 100); do
-cat > $out/${NAME}_${NK}.in << EOF
 &CONTROL
     calculation = 'scf',
     verbosity = 'high',
@@ -26,7 +11,7 @@ cat > $out/${NAME}_${NK}.in << EOF
     celldm(3) = 1.62696,
     nat = 4,
     ntyp = 2,
-    ecutwfc = ${CUTOFF},
+    ecutwfc = 200,
 /
 &ELECTRONS
     mixing_beta = 0.7
@@ -46,28 +31,4 @@ ATOMIC_POSITIONS crystal
    N  0.3333333333333333    0.6666666666666666    0.3759162900000002
 
 K_POINTS automatic
-    ${NK} ${NK} ${NK} 0 0 0
-EOF
-
-
-cat > $out/${NAME}_${NK}.slrm << EOF
-#!/bin/bash
-#SBATCH --partition=batch
-#SBATCH --job-name=MAH
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=50gb
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=6
-#SBATCH --output=%x-%j.out
-#SBATCH --error=%x-%j.err
-
-module load QuantumESPRESSO/6.8-intel-2021a
-
-srun pw.x < $out/${NAME}_${NK}.in > $out/${NAME}_${NK}.out
-EOF
-
-sbatch "$out/${NAME}_${NK}.slrm"
-
-sleep 1
-
-done
+    15 15 15 0 0 0
