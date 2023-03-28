@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
+rsync -atvz newton:kayhide/dft-hands-on/GaN-Phonons/output ./
+
+echo "done"
