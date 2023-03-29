@@ -28,6 +28,7 @@
           dev-env = pkgs.buildEnv {
             name = "dev-env";
             paths = with pkgs; [
+              ghostscript
               gfortran
               gnumake
               gnuplot
