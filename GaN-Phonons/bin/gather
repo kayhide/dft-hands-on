@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -eu
+
+readarray -t forces < <(find output/force -name "GaN-*.out" | sort -V)
+phonopy -f "${forces[@]}"
+
+echo "done."
